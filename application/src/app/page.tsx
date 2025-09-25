@@ -2,37 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-
-const FloatingCircle = ({
-  delay,
-  size,
-  position,
-  image,
-  color,
-}: {
-  delay: number;
-  size: string;
-  position: string;
-  image: string;
-  color: string;
-}) => (
-  <motion.div
-    className={`absolute ${position} ${size} rounded-full overflow-hidden shadow-2xl cursor-pointer`}
-    initial={{ scale: 0, rotate: -180, opacity: 0 }}
-    animate={{ scale: 1, rotate: 0, opacity: 1 }}
-    transition={{ delay, duration: 0.8, type: "spring", bounce: 0.4 }}
-    whileHover={{ scale: 1.15, y: -8, rotate: 5 }}
-    whileTap={{ scale: 0.95 }}
-  >
-    <div className={`w-full h-full ${color}`}>
-      <img
-        src={image}
-        alt="Music"
-        className="w-full h-full object-cover rounded-full"
-      />
-    </div>
-  </motion.div>
-);
+import ExploreSection from "@/components/ExploreSection";
 
 const MusicNote = ({
   delay,
@@ -86,6 +56,27 @@ const WavyLine = ({ delay }: { delay: number }) => (
   </motion.svg>
 );
 
+const MusicalStaff = () => (
+  <motion.div
+    className="absolute -top-16 left-1/2 transform -translate-x-1/2"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.5, duration: 0.5 }}
+  >
+    <svg width="120" height="60" viewBox="0 0 120 60" className="text-white/60">
+      {/* Staff lines */}
+      <motion.line x1="10" y1="20" x2="110" y2="20" stroke="currentColor" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.8, duration: 1 }} />
+      <motion.line x1="10" y1="30" x2="110" y2="30" stroke="currentColor" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.9, duration: 1 }} />
+      <motion.line x1="10" y1="40" x2="110" y2="40" stroke="currentColor" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 1.0, duration: 1 }} />
+      
+      {/* Notes */}
+      <motion.ellipse cx="30" cy="25" rx="4" ry="3" fill="currentColor" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8, duration: 0.3 }} />
+      <motion.ellipse cx="60" cy="35" rx="4" ry="3" fill="currentColor" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 2.0, duration: 0.3 }} />
+      <motion.ellipse cx="90" cy="20" rx="4" ry="3" fill="currentColor" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 2.2, duration: 0.3 }} />
+    </svg>
+  </motion.div>
+);
+
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -96,6 +87,12 @@ export default function Home() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  const scrollToExplore = () => {
+    document.getElementById('explore-section')?.scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
@@ -152,48 +149,17 @@ export default function Home() {
       <MusicNote delay={5} x="left-1/2" y="top-1/2" />
       <MusicNote delay={5.5} x="right-1/2" y="bottom-1/2" />
 
-      {/* Floating circles */}
-      <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <FloatingCircle
-          delay={0.2}
-          size="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36"
-          position="-top-16 -left-20 sm:-top-24 sm:-left-28"
-          image="/amadeus.png"
-          color="bg-white"
-        />
-        <FloatingCircle
-          delay={0.4}
-          size="w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24"
-          position="-top-8 left-16 sm:-top-12 sm:left-24"
-          image="/piano.png"
-          color="bg-black"
-        />
-        <FloatingCircle
-          delay={0.6}
-          size="w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28"
-          position="top-10 -left-12 sm:top-16 sm:-left-16"
-          image="/violin.png"
-          color="bg-gradient-to-br from-blue-400 to-purple-500"
-        />
-        <FloatingCircle
-          delay={0.8}
-          size="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
-          position="top-6 left-12 sm:top-10 sm:left-20"
-          image="rach.png"
-          color="bg-gradient-to-br from-pink-400 to-red-500"
-        />
-      </div>
-
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-40 sm:pt-48">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-20 sm:pt-24">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-16 relative"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
         >
+          <MusicalStaff />
           <motion.h1
-            className="text-7xl sm:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent mb-6"
+            className="text-7xl sm:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent mb-6 mt-8"
             style={{ fontFamily: "serif" }}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -222,8 +188,8 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.6 }}
         >
-          <motion.a
-            href="/player"
+          <motion.button
+            onClick={scrollToExplore}
             className="flex-1 border border-white/30 text-white py-4 px-8 rounded-full text-center font-semibold text-lg backdrop-blur-sm"
             whileHover={{
               scale: 1.05,
@@ -233,7 +199,7 @@ export default function Home() {
             transition={{ type: "spring", stiffness: 300 }}
           >
             Explore
-          </motion.a>
+          </motion.button>
         </motion.div>
 
         {/* Scroll indicator */}
@@ -256,6 +222,8 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </div>
+
+      <ExploreSection />
     </div>
   );
 }
