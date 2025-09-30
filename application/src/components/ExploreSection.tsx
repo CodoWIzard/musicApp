@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function ExploreSection() {
   return (
-    <div id="explore-section" className="min-h-screen bg-slate-900 relative">
+    <div id="explore-section" className="min-h-screen bg-black relative">
       <div className="container mx-auto px-6 py-20">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
