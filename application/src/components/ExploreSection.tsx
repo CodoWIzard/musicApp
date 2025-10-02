@@ -2,10 +2,12 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ExploreSection() {
   const ref = useRef(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const router = useRouter();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -198,7 +200,8 @@ export default function ExploreSection() {
               boxShadow: "0 0 40px rgba(147, 51, 234, 0.6)",
             }}
             whileTap={{ scale: 0.95 }}
-            className="px-12 py-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white text-xl font-semibold rounded-full hover:from-purple-500 hover:to-purple-700 transition-all duration-300 shadow-2xl"
+            onClick={() => router.push('/player')}
+            className="px-12 py-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white text-xl font-semibold rounded-full hover:from-purple-500 hover:to-purple-700 transition-all duration-300 shadow-2xl cursor-pointer"
           >
             Start Your Journey
           </motion.button>
