@@ -18,7 +18,17 @@ interface Track {
   description: string;
 }
 
-const genres = ["All", "Symphony", "Baroque", "Impressionist", "Sacred", "Concerto", "Sonata", "Bagatelle", "Ballet"];
+const genres = [
+  "All",
+  "Symphony",
+  "Baroque",
+  "Impressionist",
+  "Sacred",
+  "Concerto",
+  "Sonata",
+  "Bagatelle",
+  "Ballet",
+];
 
 export default function MusicBrowser() {
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -41,7 +51,7 @@ export default function MusicBrowser() {
     togglePlay,
     seek,
     setVolumeLevel,
-    formatTime
+    formatTime,
   } = useAudio();
 
   // Fetch tracks from API
@@ -86,8 +96,8 @@ export default function MusicBrowser() {
 
   const nextTrack = () => {
     if (!currentTrack || tracks.length === 0) return;
-    const currentIndex = tracks.findIndex(t => t.id === currentTrack.id);
-    const nextIndex = isShuffled 
+    const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
+    const nextIndex = isShuffled
       ? Math.floor(Math.random() * tracks.length)
       : (currentIndex + 1) % tracks.length;
     play(tracks[nextIndex]);
@@ -95,10 +105,12 @@ export default function MusicBrowser() {
 
   const previousTrack = () => {
     if (!currentTrack || tracks.length === 0) return;
-    const currentIndex = tracks.findIndex(t => t.id === currentTrack.id);
+    const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
     const prevIndex = isShuffled
       ? Math.floor(Math.random() * tracks.length)
-      : currentIndex === 0 ? tracks.length - 1 : currentIndex - 1;
+      : currentIndex === 0
+      ? tracks.length - 1
+      : currentIndex - 1;
     play(tracks[prevIndex]);
   };
 
@@ -107,7 +119,7 @@ export default function MusicBrowser() {
       {/* Hidden Audio Element */}
       <audio ref={audioRef} />
 
-      {/* Animated Background */}
+      {/* anim background */}
       <div className="absolute inset-0">
         {currentTrack && (
           <motion.div
@@ -118,7 +130,7 @@ export default function MusicBrowser() {
             className={`absolute inset-0 bg-gradient-to-br ${currentTrack.color}`}
           />
         )}
-        
+
         {/* Floating Particles */}
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -152,11 +164,15 @@ export default function MusicBrowser() {
           >
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h1 className="text-6xl font-thin text-gray-800 mb-2">Finetune</h1>
-                <p className="text-gray-500 text-lg">Classical Music Collection</p>
+                <h1 className="text-6xl font-thin text-gray-800 mb-2">
+                  Finetune
+                </h1>
+                <p className="text-gray-500 text-lg">
+                  Classical Music Collection
+                </p>
               </div>
-              
-              {/* Search */}
+
+              {/* Search Function */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -202,7 +218,10 @@ export default function MusicBrowser() {
               {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[...Array(6)].map((_, i) => (
-                    <div key={i} className="backdrop-blur-xl bg-white/20 rounded-3xl p-6 animate-pulse">
+                    <div
+                      key={i}
+                      className="backdrop-blur-xl bg-white/20 rounded-3xl p-6 animate-pulse"
+                    >
                       <div className="w-14 h-14 bg-gray-300 rounded-2xl mb-4" />
                       <div className="h-4 bg-gray-300 rounded mb-2" />
                       <div className="h-3 bg-gray-300 rounded w-2/3" />
@@ -229,14 +248,30 @@ export default function MusicBrowser() {
                             : "backdrop-blur-xl bg-white/25 border border-white/30 hover:bg-white/35 shadow-lg hover:shadow-xl"
                         }`}
                       >
-                        <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-15`} />
-                        
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-15`}
+                        />
+
                         <div className="relative z-10">
                           <div className="flex items-start justify-between mb-4">
-                            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.color} flex items-center justify-center shadow-lg`}>
-                              <motion.span 
-                                animate={{ rotate: currentTrack?.id === track.id && isPlaying ? 360 : 0 }}
-                                transition={{ duration: 3, repeat: currentTrack?.id === track.id && isPlaying ? Infinity : 0, ease: "linear" }}
+                            <div
+                              className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.color} flex items-center justify-center shadow-lg`}
+                            >
+                              <motion.span
+                                animate={{
+                                  rotate:
+                                    currentTrack?.id === track.id && isPlaying
+                                      ? 360
+                                      : 0,
+                                }}
+                                transition={{
+                                  duration: 3,
+                                  repeat:
+                                    currentTrack?.id === track.id && isPlaying
+                                      ? Infinity
+                                      : 0,
+                                  ease: "linear",
+                                }}
                                 className="text-white text-2xl"
                               >
                                 ♪
@@ -246,11 +281,15 @@ export default function MusicBrowser() {
                               <span className="text-sm text-gray-500 bg-white/50 px-3 py-1 rounded-full">
                                 {track.duration}
                               </span>
-                              <div className="mt-2 text-xs text-gray-400">{track.year}</div>
+                              <div className="mt-2 text-xs text-gray-400">
+                                {track.year}
+                              </div>
                             </div>
                           </div>
-                          
-                          <h3 className="font-semibold text-gray-800 text-lg mb-1">{track.title}</h3>
+
+                          <h3 className="font-semibold text-gray-800 text-lg mb-1">
+                            {track.title}
+                          </h3>
                           <p className="text-gray-600 mb-2">{track.composer}</p>
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-gray-500 bg-white/40 px-2 py-1 rounded-full">
@@ -258,15 +297,17 @@ export default function MusicBrowser() {
                             </span>
                             <div className="flex items-center gap-1">
                               <div className="w-16 h-1 bg-white/40 rounded-full overflow-hidden">
-                                <div 
+                                <div
                                   className="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"
                                   style={{ width: `${track.popularity}%` }}
                                 />
                               </div>
-                              <span className="text-xs text-gray-500">{track.popularity}%</span>
+                              <span className="text-xs text-gray-500">
+                                {track.popularity}%
+                              </span>
                             </div>
                           </div>
-                          
+
                           {currentTrack?.id === track.id && (
                             <motion.div
                               initial={{ scale: 0 }}
@@ -297,21 +338,30 @@ export default function MusicBrowser() {
                       animate={{ scale: 1, opacity: 1 }}
                       className="relative"
                     >
-                      <div className={`aspect-square rounded-3xl bg-gradient-to-br ${currentTrack.color} flex items-center justify-center shadow-2xl relative overflow-hidden`}>
-                        <motion.span 
-                          animate={{ 
+                      <div
+                        className={`aspect-square rounded-3xl bg-gradient-to-br ${currentTrack.color} flex items-center justify-center shadow-2xl relative overflow-hidden`}
+                      >
+                        <motion.span
+                          animate={{
                             rotate: isPlaying ? 360 : 0,
-                            scale: isPlaying ? [1, 1.1, 1] : 1
+                            scale: isPlaying ? [1, 1.1, 1] : 1,
                           }}
-                          transition={{ 
-                            rotate: { duration: 4, repeat: isPlaying ? Infinity : 0, ease: "linear" },
-                            scale: { duration: 2, repeat: isPlaying ? Infinity : 0 }
+                          transition={{
+                            rotate: {
+                              duration: 4,
+                              repeat: isPlaying ? Infinity : 0,
+                              ease: "linear",
+                            },
+                            scale: {
+                              duration: 2,
+                              repeat: isPlaying ? Infinity : 0,
+                            },
                           }}
                           className="text-white text-6xl z-10"
                         >
                           ♪
                         </motion.span>
-                        
+
                         {/* Animated Rings */}
                         {isPlaying && (
                           <>
@@ -322,7 +372,11 @@ export default function MusicBrowser() {
                             />
                             <motion.div
                               animate={{ scale: [1, 1.3], opacity: [0.3, 0] }}
-                              transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: 0.5,
+                              }}
                               className="absolute inset-0 border-4 border-white/20 rounded-3xl"
                             />
                           </>
@@ -332,8 +386,12 @@ export default function MusicBrowser() {
 
                     {/* Track Info */}
                     <div className="text-center">
-                      <h3 className="text-2xl font-semibold text-gray-800 mb-2">{currentTrack.title}</h3>
-                      <p className="text-gray-600 text-lg mb-1">{currentTrack.composer}</p>
+                      <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+                        {currentTrack.title}
+                      </h3>
+                      <p className="text-gray-600 text-lg mb-1">
+                        {currentTrack.composer}
+                      </p>
                       <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
                         <span>{currentTrack.genre}</span>
                         <span>•</span>
@@ -343,7 +401,7 @@ export default function MusicBrowser() {
 
                     {/* Enhanced Progress */}
                     <div className="space-y-3">
-                      <div 
+                      <div
                         className="w-full h-3 bg-white/40 rounded-full overflow-hidden cursor-pointer"
                         onClick={handleProgressClick}
                       >
@@ -368,12 +426,14 @@ export default function MusicBrowser() {
                           whileTap={{ scale: 0.9 }}
                           onClick={() => setIsShuffled(!isShuffled)}
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                            isShuffled ? "bg-blue-500 text-white" : "bg-white/40 text-gray-600 hover:bg-white/60"
+                            isShuffled
+                              ? "bg-blue-500 text-white"
+                              : "bg-white/40 text-gray-600 hover:bg-white/60"
                           }`}
                         >
                           🔀
                         </motion.button>
-                        
+
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
@@ -382,7 +442,7 @@ export default function MusicBrowser() {
                         >
                           ⏮
                         </motion.button>
-                        
+
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
@@ -391,7 +451,7 @@ export default function MusicBrowser() {
                         >
                           {isPlaying ? "⏸" : "▶"}
                         </motion.button>
-                        
+
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
@@ -400,13 +460,15 @@ export default function MusicBrowser() {
                         >
                           ⏭
                         </motion.button>
-                        
+
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => setIsRepeated(!isRepeated)}
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                            isRepeated ? "bg-blue-500 text-white" : "bg-white/40 text-gray-600 hover:bg-white/60"
+                            isRepeated
+                              ? "bg-blue-500 text-white"
+                              : "bg-white/40 text-gray-600 hover:bg-white/60"
                           }`}
                         >
                           🔁
@@ -416,18 +478,20 @@ export default function MusicBrowser() {
                       {/* Volume Control */}
                       <div className="flex items-center space-x-4">
                         <span className="text-gray-500">🔊</span>
-                        <div 
+                        <div
                           className="flex-1 h-2 bg-white/40 rounded-full cursor-pointer"
                           onClick={handleVolumeClick}
                         >
-                          <div 
+                          <div
                             className="h-full bg-gradient-to-r from-gray-400 to-gray-600 rounded-full relative"
                             style={{ width: `${volume}%` }}
                           >
                             <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg" />
                           </div>
                         </div>
-                        <span className="text-sm text-gray-500 w-8">{Math.round(volume)}</span>
+                        <span className="text-sm text-gray-500 w-8">
+                          {Math.round(volume)}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -435,12 +499,18 @@ export default function MusicBrowser() {
                   <div className="text-center py-16">
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                       className="w-24 h-24 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center"
                     >
                       <span className="text-gray-400 text-4xl">♪</span>
                     </motion.div>
-                    <p className="text-gray-500 text-lg">Select a track to begin your journey</p>
+                    <p className="text-gray-500 text-lg">
+                      Select a track to begin your journey
+                    </p>
                   </div>
                 )}
               </div>
@@ -459,10 +529,16 @@ export default function MusicBrowser() {
             className="xl:hidden fixed bottom-6 left-6 right-6 backdrop-blur-xl bg-white/50 border border-white/60 rounded-3xl p-4 shadow-2xl"
           >
             <div className="flex items-center space-x-4">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${currentTrack.color} flex items-center justify-center shadow-lg relative overflow-hidden`}>
-                <motion.span 
+              <div
+                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${currentTrack.color} flex items-center justify-center shadow-lg relative overflow-hidden`}
+              >
+                <motion.span
                   animate={{ rotate: isPlaying ? 360 : 0 }}
-                  transition={{ duration: 3, repeat: isPlaying ? Infinity : 0, ease: "linear" }}
+                  transition={{
+                    duration: 3,
+                    repeat: isPlaying ? Infinity : 0,
+                    ease: "linear",
+                  }}
                   className="text-white text-xl"
                 >
                   ♪
@@ -476,10 +552,14 @@ export default function MusicBrowser() {
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-gray-800 truncate">{currentTrack.title}</h4>
-                <p className="text-gray-600 text-sm truncate">{currentTrack.composer}</p>
+                <h4 className="font-semibold text-gray-800 truncate">
+                  {currentTrack.title}
+                </h4>
+                <p className="text-gray-600 text-sm truncate">
+                  {currentTrack.composer}
+                </p>
                 <div className="w-full h-1 bg-white/40 rounded-full mt-2">
-                  <div 
+                  <div
                     className={`h-full bg-gradient-to-r ${currentTrack.color} rounded-full`}
                     style={{ width: `${progress}%` }}
                   />
