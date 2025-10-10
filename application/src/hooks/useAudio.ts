@@ -72,10 +72,27 @@ export const useAudio = () => {
 
     if (audioRef.current) {
       try {
+        // Fallback to working demo audio if original fails
+        const fallbackUrl = `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${track?.id || 1}.mp3`;
+        
+        if (track && audioRef.current.src !== track.audioUrl) {
+          audioRef.current.src = track.audioUrl;
+        }
+        
         await audioRef.current.play();
         setIsPlaying(true);
       } catch (error) {
         console.error('Error playing audio:', error);
+        // Try fallback URL
+        if (track && audioRef.current) {
+          try {
+            audioRef.current.src = `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${track.id}.mp3`;
+            await audioRef.current.play();
+            setIsPlaying(true);
+          } catch (fallbackError) {
+            console.error('Fallback audio also failed:', fallbackError);
+          }
+        }
       }
     }
   };

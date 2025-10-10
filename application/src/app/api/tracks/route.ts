@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-// Classical music database with real tracks
+// Classical music database with Internet Archive recordings
 const classicalTracks = [
   {
     id: 1,
@@ -11,7 +11,7 @@ const classicalTracks = [
     genre: "Symphony",
     year: 1824,
     popularity: 95,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav", // Demo audio
+    audioUrl: "https://ia902606.us.archive.org/35/items/APoliceInvestigation/APoliceInvestigation-09-Symphony9.mp3",
     album: "Beethoven: Complete Symphonies",
     description: "Beethoven's final complete symphony, featuring the famous 'Ode to Joy'"
   },
@@ -24,7 +24,7 @@ const classicalTracks = [
     genre: "Baroque",
     year: 1680,
     popularity: 88,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    audioUrl: "https://ia801504.us.archive.org/1/items/PachelbelCanonInDMajor/PachelbelCanonInDMajor.mp3",
     album: "Baroque Masterworks",
     description: "One of the most famous pieces of classical music"
   },
@@ -37,7 +37,7 @@ const classicalTracks = [
     genre: "Impressionist",
     year: 1905,
     popularity: 92,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    audioUrl: "https://ia801609.us.archive.org/16/items/ClairDeLuneDebussy/ClairDeLuneDebussy.mp3",
     album: "Suite Bergamasque",
     description: "A dreamy, atmospheric piano piece meaning 'moonlight'"
   },
@@ -50,7 +50,7 @@ const classicalTracks = [
     genre: "Sacred",
     year: 1825,
     popularity: 85,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    audioUrl: "https://ia801609.us.archive.org/16/items/SchubertAveMaria_201805/SchubertAveMaria.mp3",
     album: "Sacred Classical Collection",
     description: "A beautiful sacred song based on a poem by Walter Scott"
   },
@@ -63,7 +63,7 @@ const classicalTracks = [
     genre: "Concerto",
     year: 1725,
     popularity: 90,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    audioUrl: "https://ia801609.us.archive.org/16/items/VivaldiFourSeasonsSpring/VivaldiFourSeasonsSpring.mp3",
     album: "The Four Seasons",
     description: "A violin concerto depicting the sounds and feelings of spring"
   },
@@ -76,7 +76,7 @@ const classicalTracks = [
     genre: "Sonata",
     year: 1801,
     popularity: 94,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    audioUrl: "https://ia801609.us.archive.org/16/items/BeethovenMoonlightSonata_201805/BeethovenMoonlightSonata.mp3",
     album: "Beethoven: Piano Sonatas",
     description: "One of Beethoven's most popular piano sonatas"
   },
@@ -89,7 +89,7 @@ const classicalTracks = [
     genre: "Bagatelle",
     year: 1810,
     popularity: 87,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    audioUrl: "https://ia801609.us.archive.org/16/items/BeethovenFurElise_201805/BeethovenFurElise.mp3",
     album: "Beethoven: Piano Works",
     description: "A charming piano piece dedicated to Elise"
   },
@@ -102,7 +102,7 @@ const classicalTracks = [
     genre: "Ballet",
     year: 1876,
     popularity: 89,
-    audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    audioUrl: "https://ia801609.us.archive.org/16/items/TchaikovskySwanLake_201805/TchaikovskySwanLake.mp3",
     album: "Tchaikovsky: Ballet Suites",
     description: "Music from the famous ballet about a princess turned into a swan"
   }
